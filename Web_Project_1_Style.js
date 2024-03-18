@@ -1,38 +1,11 @@
 var re_check=document.querySelector(".check");
-const Target = {
-    nav_state: (val) => {
-        return val % 2 === 0 ? true : false;
-    },
-    State_change: (state, one, two, thr,show) => {
-        
-        
-        if (state) {
-            one.classList.replace("one","one_look");
-            two.classList.add("two_look");
-            thr.classList.replace("thr","thr_look");
-            show.classList.remove("close");
-            a.classList.add("full");
-            
-        } else {
-            one.classList.replace("one_look","one");
-            two.classList.remove("two_look");
-            thr.classList.replace("thr_look","thr");
-            show.classList.add("close");
-            a.classList.remove("full");
-        }
-    },
-    show_load_bar:()=>{
-        
-        let animation_load=document.querySelector(".say");
-        animation_load.innerHTML="Loading";
-        let load=setInterval(()=>{
-            animation_load.innerHTML+=".";
-        },330);
-        setTimeout(() => {
-            clearInterval(load);
-        }, 990);
+const Target = {nav_state: (val) => {return val % 2 === 0 ? true : false;},
+State_change: (state, one, two, thr,show) => {
+if (state) {one.classList.replace("one","one_look");two.classList.add("two_look");thr.classList.replace("thr","thr_look");show.classList.remove("close");a.classList.add("full");} else{one.classList.replace("one_look","one");two.classList.remove("two_look");thr.classList.replace("thr_look","thr");show.classList.add("close");a.classList.remove("full");
+}},
+show_load_bar:()=>{let animation_load=document.querySelector(".say");animation_load.innerHTML="Loading";let load=setInterval(()=>{animation_load.innerHTML+=".";},330);
+    setTimeout(() => {clearInterval(load);}, 990);
         animation_div.style.visibility="visible";
-        
         animation_count++; 
     },
     img_change:()=>{
@@ -67,11 +40,15 @@ const data_check={
         fir_span.innerHTML=data;
         color_change.style.borderColor="#ff4b4b";
         all_fill=0;
+        color_change.style.backgroundColor="#1a1919";
+        color_change.style.color="white";
     
     },
     success:(fir_span,color_change)=>{
         fir_span.innerHTML="";
         color_change.style.borderColor="rgb(104 255 89)";
+        color_change.style.backgroundColor="white";
+        color_change.style.color="black";
         all_fill=1;
         
     },
@@ -146,6 +123,8 @@ const data_check={
         pass:()=>{
             let pass_data=document.querySelector("#pass0");
             let pass_span=document.querySelector(".pass");
+            let pass_value=document.querySelector(".icon");
+            pass_value.style.color="white";
             if((pass_data.value).length<7)
             {
                 
@@ -159,6 +138,8 @@ const data_check={
             }
             else{
                 data_check.success(pass_span,pass_data);
+              
+            pass_value.style.color="black";
                 return true;
             }
         }
@@ -286,7 +267,21 @@ nav_bt.addEventListener("click", () => {
         
     }
 });
+var icon_state=document.querySelector(".icon");
 
+icon_state.addEventListener("click",()=>{
+    if(icon_state.innerHTML=="visibility")
+    {
+        icon_state.innerHTML="lock";
+        pass_show.setAttribute("type","text");
+    }
+    else{
+        icon_state.innerHTML="visibility";
+        pass_show.setAttribute("type","password");
+        
+    }
+
+})
 let final_create=document.querySelector(".checkit");
 final_create.addEventListener("click",()=>{
     let actual=document.querySelector("#pass0");
@@ -300,7 +295,7 @@ final_create.addEventListener("click",()=>{
         setTimeout(()=>{
             let bd=document.querySelector("body");
             let user=document.querySelector("#user");
-            bd.innerHTML=user.value+"@hacker.in is "+"Account Created!";
+            bd.innerHTML=`${user.value}@hacker.in Account Created!`;
         },5000)
     }
     else{
@@ -308,6 +303,23 @@ final_create.addEventListener("click",()=>{
         data_check.error_raise(real_sp,"Incorrect Password",real);
     }
 })
+var pass_show=document.querySelector("#pass0");
+pass_show.addEventListener("click",()=>{
+    setInterval(()=>{
+    let pas_state=document.querySelector(".icon");
+    let pass_value=document.querySelector("#pass0");
+   
+    if(pass_value.value=="")
+    {
+        pas_state.style.visibility="hidden";
+        pas_state.innerHTML="visibility";
+    }
+    else{
+        pas_state.style.visibility ="visible";
+    }
+},10);
+})
+
 function start()
 {
     let anima;
